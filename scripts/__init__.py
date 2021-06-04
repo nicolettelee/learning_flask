@@ -12,11 +12,14 @@ def create_app():
 		DATABASE="scripts/chars.sqlite"
 	)
 
-	@app.route("/")
-	def factory_hi():
-		return("Made from app factory")
+	#@app.route("/")
+	#def factory_hi():
+	#	return("Made from app factory")
 
 	from . import database
 	database.init_app(app)
 
+	from . import main
+	app.register_blueprint(main.bp)
+	app.add_url_rule("/", endpoint="index")
 	return app
